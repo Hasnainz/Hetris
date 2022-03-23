@@ -16,12 +16,7 @@ data Block = Block { coords    :: (Int, Int), -- Fixed coordinates that are tran
 data Tetrimino = I | O | T | S | Z | J | L 
   deriving (Show, Enum, Bounded, Eq) 
 
---Random instance of our tetris pieces using enum to pick a random number
---https://stackoverflow.com/questions/11811498/generate-a-random-value-from-a-user-defined-data-type-in-haskell
-instance Random Tetrimino where
-  random g = randomR (minBound, maxBound) g
-  randomR (x,y) g = case randomR (fromEnum x, fromEnum y) g of
-    (r, g') -> (toEnum r, g')
+
 
 --Returns true if all blocks are not nothing (they are tetris pieces)
 islinefull :: Vector.Vector Block -> Bool
@@ -31,7 +26,7 @@ realign :: Grid -> Grid
 realign grid = Vector.fromList [Vector.fromList [Block {coords = (x, y), blockType = (blockType $ (grid Vector.! y) Vector.! x)} | x <- [0..9]] | y <- [0..21] ]
 --Filter out all full lines
 --let c = the number of lines cleared, 
---Add c lines to the top of the array
+--Add c lines to the top of the grid
 --Realign the grid
 clear :: Grid -> (Grid,Int)
 clear grid = (alignedgrid, linescleared)

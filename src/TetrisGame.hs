@@ -44,11 +44,6 @@ maybepiececoords (Just piece) a = getPieceCoords piece a
 maybepiececoords Nothing _ = []
 
 
---This is the inital state of the game
---The only interesting thing here is the random 
---list of pieces, everything else is fairly
---self-explainatory
---
 --According to https://tetris.fandom.com/wiki/Random_Generator
 --The way we generate random pieces is to:
 --"generates a sequence of all seven one-sided tetrominoes 
@@ -58,24 +53,40 @@ maybepiececoords Nothing _ = []
 --So we use an infinite list of lists [[I,O,T,S,Z,J,L], [I,O,T,S,Z,J,L], ...] to 
 --achieve this making use of haskell's laziness and the below library.
 --https://hackage.haskell.org/package/random-shuffle
+
+--An inifinite list of generators using split
+--split :: gen0 -> (gen1,gen2)
+gens :: StdGen -> [StdGen]
+gens gen = gen : gens (snd $ split gen)
+
+--An infinite list of pieces that first zips an infinite list of 
+--pieces and infinite list of generators together to get:
+--[([I,O,T,S,Z,J,L], gen0),([I,O,T,S,Z,J,L], gen1)...]
+--Then it maps it using the shuffle' function to get
+--[[Z,J,S,L,I,O,T], ... ]
+--Then concats them together so it is one long list
+generatepiecelist :: StdGen -> [Tetrimino]
+generatepiecelist gen = concat $ map (\(list,rand) -> shuffle' list 7 rand) (zip (repeat [I,O,T,S,Z,J,L]) (gens gen))
+
+--This is the inital state of the game
 initialState :: StdGen -> TetrisGame
 initialState gen = TetrisGame { 
-                 currentPiece    = tetrimino, 
-                 nextPieces      = tail piecelist,
-                 currentPiecePos = pos,
-                 rotationindex   = 0,
-                 currentGrid     = baseGrid,
-                 score           = 0,
-                 falling         = True,
-                 ended           = False,
-                 level           = 0,
-                 ghostpiecepos   = ghostpos,
-                 lines           = 0,
-                 gametimer       = 0,
-                 heldpiece       = Nothing,
-                 canswap         = True     }
+                 currentPiece    = tetrimino,       --The head of our infinite random list
+                 nextPieces      = tail piecelist,  --The tail of our infinite random list
+                 currentPiecePos = pos,             --Where the piece will be on the board
+                 rotationindex   = 0,               --How far the piece will be rotated
+                 currentGrid     = baseGrid,        --The empty grid
+                 score           = 0,               --Inital score
+                 falling         = True,            --The piece should start by falling
+                 ended           = False,           --The game isn't over yet
+                 level           = 0,               --We start on level 0
+                 ghostpiecepos   = ghostpos,        --The location of the ghost piece
+                 lines           = 0,               -- We haven't cleared any lines yet
+                 gametimer       = 0,               --The game has had 0 ticks passed
+                 heldpiece       = Nothing,         --There is no piece to be swapped in
+                 canswap         = True}            --We are allowed to swap pieces
     where 
-      piecelist = concat $ map (\x -> shuffle' x 7 gen) (repeat ([I,O,T,S,Z,J,L]))
+      piecelist = generatepiecelist gen
       tetrimino = head piecelist
       pos       = getPieceCoords tetrimino (4, 19) 
       ghostpos  = movepieceup baseGrid pos 20

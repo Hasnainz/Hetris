@@ -62,12 +62,12 @@ getColour t = case t of
   Z -> makeColorI 255 0 0 255
 
 getghostcol t = case t of 
-  I -> makeColorI 0 255 255 150
-  O -> makeColorI 255 255 0 150
-  T -> makeColorI 128 0 128 150
-  J -> makeColorI 0 0 255 150
-  L -> makeColorI 255 127 0 150
-  S -> makeColorI 0 255 0 150
-  Z -> makeColorI 255 0 0 150
+  I -> makeColorI 0 255 255 128
+  O -> makeColorI 255 255 0 128
+  T -> makeColorI 128 0 128 198
+  J -> makeColorI 0 0 255 198
+  L -> makeColorI 255 127 0 128
+  S -> makeColorI 0 255 0 128
+  Z -> makeColorI 255 0 0 128
 
 
