@@ -36,13 +36,6 @@ packages:
 # forks / in-progress versions pinned to a git hash. For example:
 #
 extra-deps:
-- csound-expression-5.4.3@sha256:59519758fa4fe7d875c065f4f1ca5eff4b773e3c0b6f7a844ce8f8719c424496,4550
-- csound-expression-dynamic-0.3.9@sha256:91d2ef10c5f73eac9343b9c8a442b0682815540dd7c5f047a029d21c3de38d4c,1454
-- csound-expression-opcodes-0.0.5.1@sha256:f08f4c7b46eca6961ec15de5c0311f5ea53ee4622dca43f4747d7ccfe535d8ba,1635
-- csound-expression-typed-0.2.7@sha256:1f16a4af707e882f788f4b457fd6a68ae354c1869af9480a20d7281288a9c205,4526
-- temporal-media-0.6.3@sha256:7a27d711a786c3dc9163433627e51efcc4b3fce3a947b71c29f3e388f37cae59,857
-- data-fix-cse-0.0.3@sha256:c29b23ed2d321e11314599d7a9b8a9d67d5f5dc1206d5665b3408a7d826a8bdc,1000
-- wl-pprint-1.2.1@sha256:aea676cff4a062d7d912149d270e33f5bb0c01b68a9db46ff13b438141ff4b7c,734
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a

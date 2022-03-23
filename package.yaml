@@ -1,4 +1,4 @@
-name:                cswk-program
+name:                tetris
 version:             0.1.0.0
 
 extra-source-files:
@@ -10,8 +10,6 @@ dependencies:
 - gloss
 - random
 - random-shuffle
-- csound-expression
-# - extra
 
 library:
   source-dirs: src
@@ -25,7 +23,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - cswk-program
+    - tetris
 
 tests:
   cswk-program-test:
@@ -36,4 +34,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - cswk-program
+    - tetris

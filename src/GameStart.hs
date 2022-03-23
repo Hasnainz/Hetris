@@ -185,10 +185,10 @@ getlevel n = (n `div` 10)
 --the level. For example we want to update the game 
 --4 times a second for level 1. So 120/4 = 30
 leveltoframes :: Int -> Integer
-leveltoframes 0 = 40
-leveltoframes 1 = 30
-leveltoframes 2 = 25
-leveltoframes 3 = 20
+leveltoframes 0 = 50
+leveltoframes 1 = 40
+leveltoframes 2 = 30
+leveltoframes 3 = 30
 leveltoframes 4 = 15
 leveltoframes 5 = 10
 leveltoframes 6 = 5
